@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(to right top, #5F9EA0, #4682B4, #6a5acd, #7b68ee);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Additional styling to improve overall aesthetics */
+.container {
+    padding: 25px; /* Adjust padding for better spacing */
+    background: #ffffff; /* Keep background white for cleanliness */
+    border-radius: 20px; /* Slightly more rounded corners */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12); /* More pronounced shadow for depth */
+    transition: transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.container:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.18); /* Increased shadow for lifted effect */
+}
+
+.container h1 {
+    color: #333;
+    font-size: 2.2rem; /* Increase the font size for more impact */
+    margin-bottom: 10px; /* Adjust spacing */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle text shadow for depth */
+}
+
+.container p {
+    font-size: 1.1rem; /* Slightly larger font size for readability */
+    color: #666; /* Softer color for the text */
+    margin-bottom: 25px; /* Increased spacing to separate from input field */
+    line-height: 1.6; /* Improved line height for better readability */
+    max-width: 340px; /* Max width to control the line length */
+    margin-left: auto; /* Centering the paragraph */
+    margin-right: auto; /* Centering the paragraph */
+    text-align: center; /* Ensure text is centered */
+    animation: fadeIn 2s ease-out; /* Add a fade-in animation */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.input-field:focus {
+    border-color: #494eea;
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 12px;
+    background-image: linear-gradient(to right, #6e48aa, #9d50bb); /* Gradient effect */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-weight: 600; /* Make the text a bit bolder */
+    text-transform: uppercase; /* Optional: Makes the button text uppercase */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.generate-btn:hover, .generate-btn:focus {
+    transform: translateY(-2px); /* Slightly raise the button */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow for a "lifted" effect */
+    background-image: linear-gradient(to right, #5e42a6, #8c4dbc); /* Slightly darken the gradient */
+}
+
+.generate-btn:active {
+    transform: translateY(1px); /* Push the button down a bit when clicked */
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); /* Shorten shadow to give a "pressed" effect */
+}
+
+
+.qr-code {
+    display: none; /* Hide initially */
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.qr-code img {
+    width: 100%;
+    height: auto;
+}
+
+.show-img {
+    display: block; /* Show when QR code is generated */
+}
+
+
+
+
+#downloadBtn {
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 10px;
+    background-image: linear-gradient(to right, #5F9EA0, #4682B4); /* Lighter deep blue gradient effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+#downloadBtn:hover {
+    background-image: linear-gradient(to right, #3b7b8e, #336a9d); /* Slightly darker gradient on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+#downloadBtn:active {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
+}
+
+#downloadBtn .icon {
+    height: 16px; /* Adjust the size of your icon if needed */
+    width: auto;
+    margin-right: 8px;
+}
+
+
+
+
+
+
+.error{
+    animation: shake 0.1s linear 10;
+    border: 2px solid red;
+}
+
+@keyframes shake{
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-2px);
+    }
+    50% {
+        transform: translateX(0);
+    }
+    75%{
+        transform: translateX(2px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
