@@ -50,6 +50,39 @@
         </div>
         <div id="imgBox" class="qr-code">
             <img src="" id="qrImage">
+
+            <div class="color-picker-container">
+                <label for="colorPicker" class="color-picker-label">Color:</label>
+                <input type="color" id="colorPicker" class="color-picker">
+                <div id="colorCode" class="color-code">000000</div>
+            </div>
+            
+            <div class="color-picker-container">
+                <label for="colorPickerbg" class="color-picker-label">Bg Color:</label>
+                <input type="color" id="colorPickerbg" class="color-picker" value="#C2C1C1">
+                <div id="colorCodebg" class="color-code">C2C1C1</div>
+            </div>
+            
+            <div class="slider-container">
+                <label for="mySlider" class="slider-label">Margin:</label>
+                <input type="range" id="mySlider" class="slider" min="0" max="50" value="10">
+                <div id="sliderValue">10</div>
+            </div>
+            
+            <div class="dropdown-container">
+                <label for="myDropdown" class="dropdown-label">File Type:</label>
+                <select id="myDropdown">
+                    <option value="PNG">PNG</option>
+                    <option value="GIF">GIF</option>
+                    <option value="JPEG">JPEG</option>
+                    <option value="JPG">JPG</option>
+                    <option value="SVG">SVG</option>
+                    <option value="EPS">EPS</option>
+                </select>
+            </div>
+                   
+            
+
             <button onclick="downloadQR()" id="downloadBtn" style="display: none;">Download QR</button>
         </div>
 
@@ -60,10 +93,15 @@
         let qrImage = document.getElementById("qrImage");
         let qrText = document.getElementById("qrText");
         let downloadBtn = document.getElementById("downloadBtn");
+        let qrCodeURL = '';
+        let color = ''
+        let bg = ''
+        let margin = '';
+        let fileType = '';
 
         function generateQR(){
             if(qrText.value.length > 0){
-                let qrCodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + encodeURIComponent(qrText.value);
+                qrCodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&bgcolor=F7F7F7&data=" + encodeURIComponent(qrText.value);
                 qrImage.src = qrCodeURL;
                 imgBox.classList.add("show-img");
                 downloadBtn.style.display = 'block'; // Make the download button visible
@@ -86,13 +124,47 @@
                 let imageUrl = urlCreator.createObjectURL(this.response);
                 let tag = document.createElement('a');
                 tag.href = imageUrl;
-                tag.download = qrText.value.replace(/[^a-zA-Z0-9]/g, '_') + '_qrCode.png'; // Replace non-alphanumeric characters with underscores
+                tag.download = qrText.value.replace(/[^a-zA-Z0-9]/g, '_') + '_qrCode.' + fileType; // Replace non-alphanumeric characters with underscores
                 document.body.appendChild(tag);
                 tag.click();
                 document.body.removeChild(tag);
             }
             xhr.send();
         }
+
+        //color picker code
+        document.getElementById('colorPicker').addEventListener('input', function() {
+            color = this.value.substring(1); // Removes the '#' from the color code
+            document.getElementById('colorCode').textContent = color.toUpperCase(); // Display color code without '#'
+            // Update the QR code URL with the new color, omitting the '#' as well
+            let qrCodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&color=" + color + "&bgcolor=" + bg + "&margin=" + margin + "&format=" + fileType + "&data=" + encodeURIComponent(qrText.value);
+            qrImage.src = qrCodeURL;
+        });
+
+        document.getElementById('colorPickerbg').addEventListener('input', function() {
+            bg = this.value.substring(1); // Removes the '#' from the color code
+            document.getElementById('colorCodebg').textContent = bg.toUpperCase(); // Display color code without '#'
+            // Update the QR code URL with the new color, omitting the '#' as well
+            let qrCodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&color=" + color + "&bgcolor=" + bg + "&margin=" + margin + "&format=" + fileType + "&data=" + encodeURIComponent(qrText.value);
+            qrImage.src = qrCodeURL;
+        });
+
+        //slider part
+        document.getElementById('mySlider').addEventListener('input', function() {
+            margin = this.value;
+            document.getElementById('sliderValue').textContent = this.value;
+            let qrCodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&color=" + color + "&bgcolor=" + bg + "&margin=" + margin + "&format=" + fileType + "&data=" + encodeURIComponent(qrText.value);
+            qrImage.src = qrCodeURL;
+        });
+
+        //dropdown part
+        document.getElementById('myDropdown').addEventListener('change', function() {
+            fileType = this.options[this.selectedIndex].text;
+            // document.getElementById('selectedValue').textContent = "File Type: " + this.options[this.selectedIndex].text;
+            let qrCodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&color=" + color + "&bgcolor=" + bg + "&margin=" + margin + "&format=" + fileType + "&data=" + encodeURIComponent(qrText.value);
+            qrImage.src = qrCodeURL;
+        });
+
     </script>
 </body>
 </html>

@@ -62,3 +62,111 @@
     </script>
 </body>
 </html>
+
+
+
+/* General styles for containers */
+.color-picker-container, .slider-container, .dropdown-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #ffffff; /* Matches the container's background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ensures consistent width */
+}
+
+/* Label styles */
+.color-picker-label {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 600; /* Adjust as needed for consistency with page design */
+    text-align: left;
+    width: 40%; /* Allocate width for labels */
+}
+
+/* Styles for inputs and select to fill the remaining space */
+.color-picker {
+    width: 40px; /* Slightly larger for visibility */
+    height: 40px;
+    border: none; /* Removes default border */
+    cursor: pointer;
+    border-radius: 50%; /* Ensures circular appearance */
+    -webkit-appearance: none; /* For iOS */
+}
+
+/* Adjustments for the input field to visually hide the default color picker UI */
+.color-picker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.color-picker::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.slider-label{
+    font-size: 1rem;
+    color: #333;
+    font-weight: 600; /* Adjust as needed for consistency with page design */
+    text-align: left;
+    width: 20%; /* Allocate width for labels */
+}
+
+#mySlider{
+    cursor: pointer;
+    width: 50%; /* Fill the remaining space */
+    -webkit-appearance: none; /* Removes default style on WebKit browsers */
+}
+
+/* Label styles */
+.dropdown-label {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 600; /* Adjust as needed for consistency with page design */
+    text-align: left;
+    width: 40%; /* Allocate width for labels */
+}
+
+#myDropdown {
+    cursor: pointer;
+    width: 20%; /* Fill the remaining space */
+    -webkit-appearance: none; /* Removes default style on WebKit browsers */
+}
+
+/* Adjust color code, slider value, and selected value display */
+.color-code, #sliderValue, #selectedValue {
+    font-size: 16px;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    text-align: center;
+    min-width: 60px; /* Ensures visibility */
+    width: 20%; /* Consistent width with labels */
+    margin-left: auto; /* Pushes to the right */
+}
+
+/* Specific styles for slider */
+.slider-container .slider {
+    -webkit-appearance: none; /* Removes default webkit styles */
+    appearance: none;
+    height: 8px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+}
+
+.slider::-webkit-slider-thumb, .slider::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
