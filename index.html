@@ -55,11 +55,6 @@
 
     </div>
 
-    
-
-
-
-
     <script>
         let imgBox = document.getElementById("imgBox");
         let qrImage = document.getElementById("qrImage");
@@ -72,6 +67,7 @@
                 qrImage.src = qrCodeURL;
                 imgBox.classList.add("show-img");
                 downloadBtn.style.display = 'block'; // Make the download button visible
+                downloadBtn.setAttribute('download', qrText.value + '_qrCode.png'); // Set download attribute to filename based on input
             } else {
                 qrText.classList.add('error');
                 setTimeout(()=>{
@@ -90,7 +86,7 @@
                 let imageUrl = urlCreator.createObjectURL(this.response);
                 let tag = document.createElement('a');
                 tag.href = imageUrl;
-                tag.download = 'QRCode.png';
+                tag.download = qrText.value.replace(/[^a-zA-Z0-9]/g, '_') + '_qrCode.png'; // Replace non-alphanumeric characters with underscores
                 document.body.appendChild(tag);
                 tag.click();
                 document.body.removeChild(tag);
