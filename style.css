@@ -115,22 +115,30 @@ h1 {
 
 
 .qr-code {
-    display: none; /* Hide initially */
+    /* Initial state: hidden */
+    display: none;
     margin-top: 20px;
     padding: 10px;
     border-radius: 8px;
     background: #f9f9f9;
-}
-
-.qr-code img {
-    width: 100%;
+    width: auto;
     height: auto;
 }
 
-.show-img {
-    display: block; /* Show when QR code is generated */
+
+.qr-code img {
+    width: 150px;
+    height: auto;
 }
 
+
+.show-img {
+    /* When visible, apply these styles */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 
 

@@ -63,7 +63,7 @@
 
         function generateQR(){
             if(qrText.value.length > 0){
-                let qrCodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(qrText.value);
+                let qrCodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" + encodeURIComponent(qrText.value);
                 qrImage.src = qrCodeURL;
                 imgBox.classList.add("show-img");
                 downloadBtn.style.display = 'block'; // Make the download button visible
