@@ -3,170 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free QR Code Generator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Image Overlay</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        #canvas {
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        #downloadBtn {
+            margin-top: 20px;
+            display: none; /* Initially hide the download button */
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Generate Any QR Code</h1>
-        <p>Enter text or URL below and hit the generate button.</p>
-        <div class="input-group">
-            <input type="text" placeholder="Enter text or URL" id="qrText" class="input-field">
-            <button onclick="generateQR()" class="generate-btn">Generate</button>
-        </div>
-        <div class="qr-code" id="imgBox">
-            <img src="" alt="QR Code" id="qrImage">
-            <a href="#" id="downloadBtn" download="QRCode.png">
-                <!-- <img src="download-button.png" class="icon" alt="Download Icon"> -->
-                Download QR
-            </a>                     
-        </div>
-    </div>
 
-    <script>
-        let imgBox = document.getElementById("imgBox");
-        let qrImage = document.getElementById("qrImage");
-        let qrText = document.getElementById("qrText");
-        let downloadBtn = document.getElementById("downloadBtn");
+<h2>Overlay Image on Top of Another</h2>
+<input type="file" id="baseImage" accept="image/*">
+<input type="file" id="overlayImage" accept="image/*">
+<button onclick="drawImages()">Combine Images</button>
+<canvas id="canvas"></canvas>
+<button id="downloadBtn" onclick="downloadImage()">Download Combined Image</button>
 
-        function generateQR(){
-            if(qrText.value.length > 0){
-                let qrCodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(qrText.value);
-                console.log('QR Code URL:', qrCodeURL); // Log the QR code URL
-                qrImage.src = qrCodeURL;
-                qrImage.onload = function() {
-                    console.log('QR Code image loaded successfully.'); // Log a message when the image is loaded
-                }
-                imgBox.classList.add("show-img");
-                downloadBtn.style.display = 'block'; // Make the download button visible
-            } else {
-                qrText.classList.add('error');
-                setTimeout(()=>{
-                    qrText.classList.remove('error');
-                },1000);
-            }
+<script>
+    function drawImages() {
+        const baseImageInput = document.getElementById('baseImage');
+        const overlayImageInput = document.getElementById('overlayImage');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Fixed dimensions for the overlay image
+        const fixedWidth = 200; // Example: 100 pixels width
+        const fixedHeight = 200; // Example: 100 pixels height
+
+        if (baseImageInput.files.length > 0 && overlayImageInput.files.length > 0) {
+            const baseImage = new Image();
+            const overlayImage = new Image();
+
+            baseImage.onload = () => {
+                canvas.width = baseImage.width;
+                canvas.height = baseImage.height;
+                ctx.drawImage(baseImage, 0, 0);
+
+                overlayImage.onload = () => {
+                    // Calculate center position for the fixed size
+                    const x = (baseImage.width - fixedWidth) / 2;
+                    const y = (baseImage.height - fixedHeight) / 2;
+                    ctx.drawImage(overlayImage, x, y, fixedWidth, fixedHeight); // Draw overlay with fixed size
+                    downloadBtn.style.display = 'inline'; // Show the download button after images are loaded
+                };
+                overlayImage.src = URL.createObjectURL(overlayImageInput.files[0]);
+            };
+            baseImage.src = URL.createObjectURL(baseImageInput.files[0]);
+        } else {
+            alert('Please select both images.');
         }
+    }
 
+    function downloadImage() {
+        const canvas = document.getElementById('canvas');
+        const image = canvas.toDataURL("image/png");
+        const link = document.createElement('a');
+        link.download = 'combined_image.png';
+        link.href = image;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
 
-        function downloadQR() {
-    let qrCodeURL = qrImage.src;
-    let a = document.createElement('a');
-    a.href = qrCodeURL;
-    a.download = 'QRCode.png';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-}
-
-
-    </script>
 </body>
 </html>
-
-
-
-/* General styles for containers */
-.color-picker-container, .slider-container, .dropdown-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #ffffff; /* Matches the container's background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Ensures consistent width */
-}
-
-/* Label styles */
-.color-picker-label {
-    font-size: 1rem;
-    color: #333;
-    font-weight: 600; /* Adjust as needed for consistency with page design */
-    text-align: left;
-    width: 40%; /* Allocate width for labels */
-}
-
-/* Styles for inputs and select to fill the remaining space */
-.color-picker {
-    width: 40px; /* Slightly larger for visibility */
-    height: 40px;
-    border: none; /* Removes default border */
-    cursor: pointer;
-    border-radius: 50%; /* Ensures circular appearance */
-    -webkit-appearance: none; /* For iOS */
-}
-
-/* Adjustments for the input field to visually hide the default color picker UI */
-.color-picker::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-
-.color-picker::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-}
-
-.slider-label{
-    font-size: 1rem;
-    color: #333;
-    font-weight: 600; /* Adjust as needed for consistency with page design */
-    text-align: left;
-    width: 20%; /* Allocate width for labels */
-}
-
-#mySlider{
-    cursor: pointer;
-    width: 50%; /* Fill the remaining space */
-    -webkit-appearance: none; /* Removes default style on WebKit browsers */
-}
-
-/* Label styles */
-.dropdown-label {
-    font-size: 1rem;
-    color: #333;
-    font-weight: 600; /* Adjust as needed for consistency with page design */
-    text-align: left;
-    width: 40%; /* Allocate width for labels */
-}
-
-#myDropdown {
-    cursor: pointer;
-    width: 20%; /* Fill the remaining space */
-    -webkit-appearance: none; /* Removes default style on WebKit browsers */
-}
-
-/* Adjust color code, slider value, and selected value display */
-.color-code, #sliderValue, #selectedValue {
-    font-size: 16px;
-    color: #333;
-    padding: 8px 12px;
-    border-radius: 4px;
-    background-color: #f1f1f1;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    text-align: center;
-    min-width: 60px; /* Ensures visibility */
-    width: 20%; /* Consistent width with labels */
-    margin-left: auto; /* Pushes to the right */
-}
-
-/* Specific styles for slider */
-.slider-container .slider {
-    -webkit-appearance: none; /* Removes default webkit styles */
-    appearance: none;
-    height: 8px;
-    border-radius: 5px;
-    background: #d3d3d3;
-    outline: none;
-}
-
-.slider::-webkit-slider-thumb, .slider::-moz-range-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #4CAF50;
-    cursor: pointer;
-}
