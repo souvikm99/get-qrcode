@@ -131,6 +131,10 @@ h1 {
     height: auto;
 }
 
+.qr-code #qrImage{
+    width: 150px;
+    height: auto;
+}
 
 .show-img {
     /* When visible, apply these styles */
@@ -181,10 +185,41 @@ h1 {
     margin-right: 8px;
 }
 
+.upload_btn {
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    width: 30%;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    /* margin-top: 10px; */
+    background-image: linear-gradient(to right, #5F9EA0, #4682B4); /* Lighter deep blue gradient effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.upload_btn:hover {
+    background-image: linear-gradient(to right, #3b7b8e, #336a9d); /* Slightly darker gradient on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.upload_btn:active {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
+}
 
 
 /* General styles for containers */
-.color-picker-container, .slider-container, .dropdown-container {
+.color-picker-container, .slider-container, .dropdown-container, .file-upload-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -196,7 +231,22 @@ h1 {
     width: 100%; /* Ensures consistent width */
 }
 
+
+
 /* Label styles */
+
+
+/* Label styles */
+.file-picker-label {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 600; /* Adjust as needed for consistency with page design */
+    text-align: left;
+    width: 25%; /* Allocate width for labels */
+}
+
+
+
 .color-picker-label {
     font-size: 1rem;
     color: #333;
